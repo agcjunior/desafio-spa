@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import FilterCard from "./components/FilterCard";
 import Card from "./components/Card";
 import Modal from "./components/Modal";
+import Toast from "./components/Toast";
 import { api } from "./services/api";
 import type { Book, Author, Genre } from "./types";
 import "./App.css";
@@ -23,6 +24,12 @@ function App() {
   const [showBookModal, setShowBookModal] = useState(false);
   const [showAuthorModal, setShowAuthorModal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  // Toast state
+  const [toast, setToast] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
 
   // Form states
   const [genreName, setGenreName] = useState("");
@@ -171,6 +178,7 @@ function App() {
       setBookName("");
       setBookAuthorId("");
       setBookGenreId("");
+      setToast({ message: "Livro incluído com sucesso", type: "success" });
     } catch (error) {
       console.error("Erro ao criar livro:", error);
       alert("Erro ao criar livro. Tente novamente.");
@@ -187,11 +195,19 @@ function App() {
       <header className="header">
         <div className="header-content">
           <h1>Desafio</h1>
-          {isAnyFilterActive && (
-            <button className="clear-btn" onClick={clearFilters}>
-              Limpar Filtros
+          <div className="header-actions">
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowBookModal(true)}
+            >
+              + Novo Livro
             </button>
-          )}
+            {isAnyFilterActive && (
+              <button className="clear-btn" onClick={clearFilters}>
+                Limpar Filtros
+              </button>
+            )}
+          </div>
         </div>
       </header>
 
@@ -402,6 +418,15 @@ function App() {
           </div>
         </form>
       </Modal>
+
+      {/* Toast de notificação */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }
