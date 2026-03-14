@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# Desafio - Gerenciamento de Livros
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📚 Sobre a Aplicação
 
-Currently, two official plugins are available:
+Esta é uma aplicação SPA (Single Page Application) para gerenciamento de livros, autores e gêneros literários. O projeto permite:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Visualizar** autores e gêneros em cards no painel lateral
+- **Filtrar** livros por autor ou gênero
+- **Adicionar** novos autores, gêneros e livros através de modais
+- **Visualizar** a lista de livros em uma tabela
 
-## React Compiler
+## 🛠️ Tecnologias Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Tecnologia     | Descrição                                           |
+| -------------- | --------------------------------------------------- |
+| **React**      | Biblioteca JavaScript para construção de interfaces |
+| **TypeScript** | Superset JavaScript com tipagem estática            |
+| **Vite**       | Build tool rápido para desenvolvimento              |
+| **CSS**        | Estilização com CSS Modules                         |
 
-## Expanding the ESLint configuration
+## 📋 Pré-requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Antes de executar o projeto, certifique-se de ter instalado:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Node.js** (versão 18 ou superior)
+- **npm** (gerenciador de pacotes do Node.js)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Como Executar
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone o repositório
+
+```bash
+git clone <url-do-repositorio>
+cd desafio
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instale as dependências
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Inicie o servidor de desenvolvimento
+
+```bash
+npm run dev
+```
+
+A aplicação será iniciada em `http://localhost:5173`
+
+### 4. Backend (necessário para funcionamento)
+
+A aplicação consome uma API REST que deve estar rodando em `http://localhost:5220`.
+
+Endpoints esperados:
+
+- `GET /api/autores` - Lista de autores
+- `GET /api/generos` - Lista de gêneros
+- `GET /api/livros` - Lista de livros
+- `POST /api/autores` - Criar autor
+- `POST /api/generos` - Criar gênero
+- `POST /api/livros` - Criar livro
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── components/
+│   ├── Card.tsx        # Componente de card base
+│   ├── FilterCard.tsx  # Card para filtros (autores/gêneros)
+│   ├── Modal.tsx       # Componente de modal
+│   └── Toast.tsx       # Componente de notificação
+├── services/
+│   └── api.ts          # Configuração da API
+├── App.tsx             # Componente principal
+├── App.css             # Estilos globais
+├── types.ts            # Definições de tipos TypeScript
+└── main.tsx            # Entry point da aplicação
+```
+
+## 🔧 Comandos Disponíveis
+
+| Comando           | Descrição                            |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Inicia o servidor de desenvolvimento |
+| `npm run build`   | Compila o projeto para produção      |
+| `npm run lint`    | Executa o linter                     |
+| `npm run preview` | Visualiza a versão de produção       |
+
+## 📄 Licença
+
+MIT
