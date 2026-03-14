@@ -41,4 +41,35 @@ export const api = {
     if (!response.ok) throw new Error("Erro ao buscar livros por gênero");
     return response.json();
   },
+  createGenre: async (nome: string): Promise<Genre> => {
+    const response = await fetch(`${API_BASE_URL}/generos`, {
+      ...fetchOptions,
+      method: "POST",
+      body: JSON.stringify({ nome }),
+    });
+    if (!response.ok) throw new Error("Erro ao criar gênero");
+    return response.json();
+  },
+  createBook: async (data: {
+    nome: string;
+    autorId: string;
+    generoId: string;
+  }): Promise<Book> => {
+    const response = await fetch(`${API_BASE_URL}/livros`, {
+      ...fetchOptions,
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error("Erro ao criar livro");
+    return response.json();
+  },
+  createAuthor: async (nome: string): Promise<Author> => {
+    const response = await fetch(`${API_BASE_URL}/autores`, {
+      ...fetchOptions,
+      method: "POST",
+      body: JSON.stringify({ nome }),
+    });
+    if (!response.ok) throw new Error("Erro ao criar autor");
+    return response.json();
+  },
 };
