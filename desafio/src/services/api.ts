@@ -7,7 +7,7 @@ const getApiBaseUrl = async (): Promise<string> => {
     return config.API_BASE_URL;
   } catch {
     // Fallback URL caso o arquivo de configuração não exista
-    return "http://desafio-api.ajr.dev.br/api";
+    return "https://desafio-api.ajr.dev.br/api";
   }
 };
 
