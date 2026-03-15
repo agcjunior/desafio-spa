@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from "react";
 
 interface CardProps {
   title: string | ReactNode;
@@ -7,7 +7,12 @@ interface CardProps {
   children: ReactNode;
 }
 
-const Card = ({ title, className = 'card', headerAction, children }: CardProps) => {
+const Card = ({
+  title,
+  className = "card",
+  headerAction,
+  children,
+}: CardProps) => {
   return (
     <section className={className}>
       <div className="card-header">
