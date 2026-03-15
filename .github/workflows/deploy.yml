@@ -23,6 +23,7 @@ jobs:
 
       - name: Build project
         run: npm run build
+        working-directory: desafio
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
