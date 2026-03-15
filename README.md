@@ -50,7 +50,7 @@ A aplicação será iniciada em `http://localhost:5173`
 
 ### 4. Backend (necessário para funcionamento)
 
-A aplicação consome uma API REST que deve estar rodando em `http://localhost:5220` (desenvolvimento) ou `https://desafio.ajr.dev.br/api` (produção - em breve).
+A aplicação consome uma API REST que deve estar rodando em `http://localhost:5220` (desenvolvimento) ou `https://desafio-api.ajr.dev.br/api` (produção - em breve).
 
 Endpoints esperados:
 
