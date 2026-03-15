@@ -50,7 +50,7 @@ A aplicação será iniciada em `http://localhost:5173`
 
 ### 4. Backend (necessário para funcionamento)
 
-A aplicação consome uma API REST que deve estar rodando em `http://localhost:5220`.
+A aplicação consome uma API REST que deve estar rodando em `http://localhost:5220` (desenvolvimento) ou `https://desafio.ajr.dev.br/api` (produção - em breve).
 
 Endpoints esperados:
 
@@ -90,3 +90,39 @@ src/
 ## 📄 Licença
 
 MIT
+
+---
+
+## 🔄 CI/CD e Deploy Automático
+
+Este projeto possui um workflow de CI/CD configurado utilizando **GitHub Actions** que realiza deploy automático a cada push na branch `main`.
+
+### Workflow: Deploy Desafio-spa to SmarterAsp
+
+O workflow está definido em [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) e executa as seguintes etapas:
+
+1. **Checkout** - Baixa o código do repositório
+2. **Setup Node** - Configura o ambiente com Node.js versão 20
+3. **Install dependencies** - Instala as dependências do projeto
+4. **Build project** - Compila o projeto para produção
+5. **Deploy via FTP** - Faz o upload dos arquivos compilados para o servidor SmarterAsp
+
+### Configuração
+
+Para que o deploy funcione, as seguintes secrets devem ser configuradas no repositório GitHub:
+
+| Secret         | Descrição                         |
+| -------------- | --------------------------------- |
+| `FTP_SERVER`   | Endereço do servidor FTP          |
+| `FTP_USERNAME` | Usuário FTP                       |
+| `FTP_PASSWORD` | Senha FTP                         |
+| `FTP_DIR`      | Diretório no servidor para upload |
+
+### Como funciona
+
+A cada push realizado na branch `main`, o GitHub Actions automaticamente:
+
+- Compila a aplicação
+- Faz o deploy para o servidor de produção
+
+Não é necessário realizar deploy manual.
