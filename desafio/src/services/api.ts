@@ -1,14 +1,22 @@
 import type { Author, Genre, Book } from "../types";
 
+let cachedApiBaseUrl: string | null = null;
+
 const getApiBaseUrl = async (): Promise<string> => {
+  if (cachedApiBaseUrl) return cachedApiBaseUrl;
+
   try {
     const response = await fetch("/api-config.json");
+    if (!response.ok) throw new Error();
     const config = await response.json();
-    return config.API_BASE_URL;
+    cachedApiBaseUrl = config.API_BASE_URL;
   } catch {
-    // Fallback URL caso o arquivo de configuração não exista
-    return "https://desafio-api.ajr.dev.br/api";
+    // Se falhar, verifica se estamos em desenvolvimento (Vite)
+    // Se estivermos em produção e o arquivo falhar, usa a URL direta
+    const isDev = import.meta.env.DEV;
+    cachedApiBaseUrl = isDev ? "/api" : "https://desafio-api.ajr.dev.br/api";
   }
+  return cachedApiBaseUrl!;
 };
 
 const fetchOptions: RequestInit = {

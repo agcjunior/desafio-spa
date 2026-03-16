@@ -10,9 +10,10 @@ export default defineConfig(({ mode }) => ({
   },
   server: {
     proxy: {
-      "/api/": {
-        target: "http://localhost:5220",
+      "/api": {
+        target: "https://desafio-api.ajr.dev.br/api",
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
