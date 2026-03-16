@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
@@ -16,10 +19,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
+        working-directory: desafio
+
+      - name: Run tests
+        run: npm test -- --run
         working-directory: desafio
 
       - name: Build project
@@ -27,6 +34,7 @@ jobs:
         working-directory: desafio
 
       - name: Deploy via FTP
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
